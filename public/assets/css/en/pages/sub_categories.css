@@ -1,0 +1,42 @@
+.categories-box{
+padding: 0;
+}
+.categories-box .card-header{
+    background: var(--primary);
+    color: #fff;
+    font-size: 18px;
+    border-bottom: 1px solid var(--primary);
+}
+.categories-box .card-header a{ color: #eee}
+.categories-box .category-box:not(:last-child){
+    border-bottom: 1px solid #ccc;
+}
+.categories-box .card-body{
+    padding: 0;
+}
+.categories-box .category-box{
+    font-size: 17px;
+    position: relative;
+    overflow: hidden;
+}
+.categories-box .category-box a.box-link{
+    padding: 20px 15px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
+.categories-box .category-box:hover{
+    background: #eee;
+}
+.categories-box .category-link{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -200px;
+    transition: all .8s;
+}
+.category-box:hover .category-link{
+    right: 10px;
+}

@@ -1,0 +1,56 @@
+.login-box.verfication-phone{
+    min-height: 300px !important;
+    min-width: 400px !important;
+}
+.login-content .login-box.verfication-phone .login-form, .login-content .login-box.verfication-phone .verify-code-form {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.login-content .login-box.verfication-phone .verify-code-form {
+    opacity: 0;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.login-content .login-box.verfication-phone.flipped .verify-code-form  {
+    opacity: 1;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.login-content .login-box.verfication-phone.flipped {
+    min-height: 420px !important;
+
+}
+@media (max-width: 351px) {
+     .login-content .login-box .verify-code-form {
+        width: 100%;
+    }
+}
+
+.login-box.verfication-phone .verify-code-form .resend-box {
+    margin: 20px 0;
+}
+
+.login-box.verfication-phone .verify-code-form .resend-box p {
+    color: #666;
+    font-size: 17px;
+}
+.login-box.verfication-phone .verify-code-form .resend-box button{
+    background: transparent;
+    color: var(--primary);
+}
+.login-box.verfication-phone .verify-code-form .resend-box button:not(:disabled):hover{
+    color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    font-weight: bold;
+}

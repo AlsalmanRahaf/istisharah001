@@ -1,0 +1,21 @@
+[
+    {
+        "new_consultaion":{"title":"New Consultation","body":"You Have New Consultation"},
+
+        "Consultation-accepted":{"title":"Your consultation accepted","body":"consultant ready for you"},
+        "Consultation-followup":{"title":"Your consultation follow up","body":"wait ......"},
+        "Consultation-not-important":{"title":"Your consultation rejected","body":"you can try later"},
+        "Consultation-completed":{"title":"Your consultation completed","body":"done....."},
+        "Consultation-vip":{"title":"Your consultation redirect","body":"Your consultation change to vip"},
+
+        "Consultation-type-to-user":{"title":"Your Type changed","body":"Your are now user"},
+        "user-type-to-Consultation":{"title":"Your Type changed","body":"Your are now Consultation"},
+
+        "referredConsultations":{"title":"Your Consultation transferred","body":"Your Consultation has been transferred to Spesialist"},
+
+        "Consultation-accepted-Spesialist":{"title":"Your  consultation accepted","body":"Spesialist consultant ready for you"},
+        "Consultation-not-important-Spesialist":{"title":"Your consultation rejected","body":"you can try later"},
+        "Consultation-completed-Spesialist":{"title":"Your consultation completed","body":"Spesialist Consultation done....."},
+        "Consultation-vip-Spesialist":{"title":"Your consultation redirect","body":"Your Spesialist consultation change to vip"}
+    }
+]

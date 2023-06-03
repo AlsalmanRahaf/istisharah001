@@ -1,0 +1,113 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class TimeSlotSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $types = [
+            ['time_from' => "09:00:00", 'time_to' => "09:15:00", 'object_week_days_id' => 1, 'description' => "فترة الحجز من الساعة 09:00 ص إلى الساعة 09:15 ص"],
+            ['time_from' => "09:15:00", 'time_to' => "09:30:00", 'object_week_days_id' => 1, 'description' => "فترة الحجز من الساعة 09:15 ص إلى الساعة 09:30 ص"],
+            ['time_from' => "09:30:00", 'time_to' => "09:45:00", 'object_week_days_id' => 1, 'description' => "فترة الحجز من الساعة 09:30 ص إلى الساعة 09:45 ص"],
+            ['time_from' => "09:45:00", 'time_to' => "10:00:00", 'object_week_days_id' => 1, 'description' => "فترة الحجز من الساعة 09:45 ص إلى الساعة 10:00 ص"],
+            ['time_from' => "09:00:00", 'time_to' => "09:15:00", 'object_week_days_id' => 2, 'description' => "فترة الحجز من الساعة 09:00 ص إلى الساعة 09:15 ص"],
+            ['time_from' => "09:15:00", 'time_to' => "09:30:00", 'object_week_days_id' => 2, 'description' => "فترة الحجز من الساعة 09:15 ص إلى الساعة 09:30 ص"],
+            ['time_from' => "09:30:00", 'time_to' => "09:45:00", 'object_week_days_id' => 2, 'description' => "فترة الحجز من الساعة 09:30 ص إلى الساعة 09:45 ص"],
+            ['time_from' => "09:45:00", 'time_to' => "10:00:00", 'object_week_days_id' => 2, 'description' => "فترة الحجز من الساعة 09:45 ص إلى الساعة 10:00 ص"],
+            ['time_from' => "09:00:00", 'time_to' => "09:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 09:00 ص إلى الساعة 09:30 ص"],
+            ['time_from' => "09:30:00", 'time_to' => "10:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 09:30 ص إلى الساعة 10:00 ص"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 12:00 ص إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "13:00:00", 'time_to' => "13:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 13:00 م إلى الساعة 13:30 م"],
+            ['time_from' => "13:30:00", 'time_to' => "14:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 13:30 م إلى الساعة 14:00 م"],
+            ['time_from' => "14:00:00", 'time_to' => "14:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 14:00 م إلى الساعة 14:30 م"],
+            ['time_from' => "14:30:00", 'time_to' => "15:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 14:30 م إلى الساعة 15:00 م"],
+            ['time_from' => "15:00:00", 'time_to' => "15:30:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 15:00 م إلى الساعة 15:30 م"],
+            ['time_from' => "15:30:00", 'time_to' => "16:00:00", 'object_week_days_id' => 3, 'description' => "فترة الحجز من الساعة 15:30 م إلى الساعة 16:00 م"],
+            ['time_from' => "09:00:00", 'time_to' => "09:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 09:00 ص إلى الساعة 09:30 ص"],
+            ['time_from' => "09:30:00", 'time_to' => "10:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 09:30 ص إلى الساعة 10:00 ص"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 12:00 ص إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "13:00:00", 'time_to' => "13:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 13:00 م إلى الساعة 13:30 م"],
+            ['time_from' => "13:30:00", 'time_to' => "14:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 13:30 م إلى الساعة 14:00 م"],
+            ['time_from' => "14:00:00", 'time_to' => "14:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 14:00 م إلى الساعة 14:30 م"],
+            ['time_from' => "14:30:00", 'time_to' => "15:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 14:30 م إلى الساعة 15:00 م"],
+            ['time_from' => "15:00:00", 'time_to' => "15:30:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 15:00 م إلى الساعة 15:30 م"],
+            ['time_from' => "15:30:00", 'time_to' => "16:00:00", 'object_week_days_id' => 4, 'description' => "فترة الحجز من الساعة 15:30 م إلى الساعة 16:00 م"],
+            ['time_from' => "09:00:00", 'time_to' => "09:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 09:00 ص إلى الساعة 09:30 ص"],
+            ['time_from' => "09:30:00", 'time_to' => "10:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 09:30 ص إلى الساعة 10:00 ص"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 12:00 ص إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "13:00:00", 'time_to' => "13:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 13:00 م إلى الساعة 13:30 م"],
+            ['time_from' => "13:30:00", 'time_to' => "14:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 13:30 م إلى الساعة 14:00 م"],
+            ['time_from' => "14:00:00", 'time_to' => "14:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 14:00 م إلى الساعة 14:30 م"],
+            ['time_from' => "14:30:00", 'time_to' => "15:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 14:30 م إلى الساعة 15:00 م"],
+            ['time_from' => "15:00:00", 'time_to' => "15:30:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 15:00 م إلى الساعة 15:30 م"],
+            ['time_from' => "15:30:00", 'time_to' => "16:00:00", 'object_week_days_id' => 5, 'description' => "فترة الحجز من الساعة 15:30 م إلى الساعة 16:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 6, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 6, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 6, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 6, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 6, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 6, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 7, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 7, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 7, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 7, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 7, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 7, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 8, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 8, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 8, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 8, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 8, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 8, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 9, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 9, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 9, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 9, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 9, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 9, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 10, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 10, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 10, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 10, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 10, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 10, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 11, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 11, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 11, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 11, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 11, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 11, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+            ['time_from' => "10:00:00", 'time_to' => "10:30:00", 'object_week_days_id' => 12, 'description' => "فترة الحجز من الساعة 10:00 ص إلى الساعة 10:30 ص"],
+            ['time_from' => "10:30:00", 'time_to' => "11:00:00", 'object_week_days_id' => 12, 'description' => "فترة الحجز من الساعة 10:30 ص إلى الساعة 11:00 ص"],
+            ['time_from' => "11:00:00", 'time_to' => "11:30:00", 'object_week_days_id' => 12, 'description' => "فترة الحجز من الساعة 11:00 ص إلى الساعة 11:30 ص"],
+            ['time_from' => "11:30:00", 'time_to' => "12:00:00", 'object_week_days_id' => 12, 'description' => "فترة الحجز من الساعة 11:30 ص إلى الساعة 12:00 م"],
+            ['time_from' => "12:00:00", 'time_to' => "12:30:00", 'object_week_days_id' => 12, 'description' => "فترة الحجز من الساعة 12:00 م إلى الساعة 12:30 م"],
+            ['time_from' => "12:30:00", 'time_to' => "13:00:00", 'object_week_days_id' => 12, 'description' => "فترة الحجز من الساعة 12:30 م إلى الساعة 13:00 م"],
+        ];
+        DB::table('time_slots')->insert($types);
+    }
+}

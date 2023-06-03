@@ -1,0 +1,22 @@
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#sortable li {
+    margin: 0 6px 6px 3px;
+    padding: 0.8em;
+    padding-left: 1.4em;
+    background: #fefefe;
+    box-shadow: 1px 1px 6px #999;
+    border-radius: 10px;
+}
+#sortable li span.text {
+    color: #444;
+    font-size: 19px;
+    font-weight: 600;
+}
+#sortable li span.text i{
+    margin-right: 8px;
+    font-size: 17px;
+}

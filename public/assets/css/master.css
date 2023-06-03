@@ -1,0 +1,186 @@
+/**************** Start CheckBox ***************/
+input[type=checkbox]:checked {
+    background-color: #000;
+}
+.checkbox-correct{display: inline-block;}
+.checkbox-correct input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px;
+    height: 40px;
+    background-color: #d5d5d5;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    -webkit-transition: all 0.6s ease-in-out;
+    -moz-transition: all 0.6s ease-in-out;
+    -o-transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease-in-out;
+
+}
+.checkbox-correct input[type="checkbox"]::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: '\f00c';
+    font-size: 30px;
+    color: #fff;
+    display: inline;
+    opacity: 0;
+}
+
+.checkbox-correct input[type="checkbox"]:checked { background-color: var(--primary); box-shadow:  0px 0px 5px #105198;}
+
+.checkbox-correct input[type="checkbox"]:checked::after {opacity: 1;}
+
+.checkbox-correct.size-1 input[type="checkbox"]{width: 20px;height: 20px;}
+
+.checkbox-correct.size-1 input[type="checkbox"]::after{font-size: 13px;}
+
+.checkbox-correct.size-2 input[type="checkbox"]{width: 25px;height: 25px;}
+
+.checkbox-correct.size-2 input[type="checkbox"]::after{font-size: 17px;}
+
+.checkbox-correct.size-3 input[type="checkbox"]{width: 30px;height: 30px;}
+
+.checkbox-correct.size-3 input[type="checkbox"]::after{font-size: 19px;}
+
+.checkbox-correct.size-4 input[type="checkbox"]{width: 35px;height: 35px;}
+
+.checkbox-correct.size-4 input[type="checkbox"]::after{font-size: 23px;}
+
+.checkbox-correct.size-5 input[type="checkbox"]{width: 45px;height: 45px;}
+
+.checkbox-correct.size-5 input[type="checkbox"]::after{font-size: 33px;}
+
+/******************************* Fonts Sizes ***********************************/
+
+.text-size-15{font-size: 15px;}
+.text-size-16{font-size: 16px;}
+.text-size-17{font-size: 17px;}
+.text-size-18{font-size: 18px;}
+.text-size-18{font-size: 19px;}
+.text-size-20{font-size: 20px;}
+.text-size-22{font-size: 22px;}
+
+/******************************* Status Styling ***********************************/
+.text-active-color{color: #058a00}
+.text-non-active-color{color: #ac0000}
+.status-box{
+    color: #fff;
+    padding: 7px 10px;
+    font-weight: bold;
+    border-radius: 7px;
+}
+.bg-active-color{background-color: #058a00}
+.bg-vip-color{background-color: #0d1214}
+.bg-active2-color{background-color: #BDF516}
+.bg-warning-color{background-color: #e5d600}
+.bg-primary-color{background-color: #0000FF}
+.bg-non-active-color{background-color: #ac0000}
+
+
+
+.border-width-1{border-style:solid;border-width: 1px;}
+.border-width-2{border-style:solid;border-width: 2px}
+.border-width-3{border-style:solid;border-width: 3px}
+.border-color-#aaa{border-color: #aaa;}
+.border-color-#bbb{border-color: #bbb;}
+.border-color-#ccc{border-color: #ccc;}
+
+.description-box{
+    border: 1px solid #efefef;
+    background-color: #fcfcfc;
+    padding: 15px;
+    margin: 10px;
+}
+.description-box .box-header{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.description-box .box-content{
+    text-align: center;
+    font-size: 19px;
+}
+.description-box .box-content #map{
+    height: 200px !important;
+}
+
+.download-links-box {
+    background-color: #f7f7f7;
+    border-radius: 7px;
+    margin: 15px;
+    padding: 15px;
+}
+.download-links-box .link-name-box{
+    color: #555;
+    font-size: 18px;
+}
+.download-links-box .link-button-download-box{
+    text-align: right;
+}
+
+
+/****** SideBar ******/
+.app-sidebar__user{
+    padding: 20px 10px 10px;
+}
+
+/***************** Box Checking ****************/
+.box-checking-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.box-checking-container .box-checking{
+    margin: 5px;
+    border-radius: 7px;
+    position: relative;
+
+}
+.box-checking-container .box-checking input{
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.box-checking-container .box-checking label{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5px 13px;
+    color: #fff;
+    border-radius: 7px;
+    font-size: 16px;
+    transition: all .3s ease-in;
+    background: #ccc;
+
+}
+.box-checking-container .box-checking > input:checked + label {
+    background: var(--primary);
+}
+
+.animated-checkbox.size-lg{font-size: 17px}
+.animated-checkbox.size-lg input[type="checkbox"] + .label-text:before {
+    font-size: 20px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.carousel-inner div {
+    height: 400px;
+    object-fit: cover;
+}
+.carousel-inner  img{
+    width: 100px; // how much you want
+    min-height: 100px;
+    float: left;
+    margin: 10px;
+}

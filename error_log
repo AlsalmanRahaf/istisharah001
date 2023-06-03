@@ -1,0 +1,19 @@
+[15-Dec-2021 14:27:49 Asia/Amman] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/istesharauser/public_html/chat_project/vendor/psr/log/src/LoggerInterface.php on line 30
+[15-Dec-2021 14:27:49 Asia/Amman] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[15-Dec-2021 14:27:49 Asia/Amman] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/istesharauser/public_html/chat_project/vendor/psr/log/src/LoggerInterface.php on line 30
+[15-Dec-2021 14:27:49 Asia/Amman] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[15-Dec-2021 14:32:19 Asia/Amman] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/istesharauser/public_html/chat_project/vendor/psr/log/src/LoggerInterface.php on line 30
+[15-Dec-2021 14:32:19 Asia/Amman] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[15-Dec-2021 14:32:19 Asia/Amman] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/istesharauser/public_html/chat_project/vendor/psr/log/src/LoggerInterface.php on line 30
+[15-Dec-2021 14:32:19 Asia/Amman] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[15-Dec-2021 13:06:39 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.0". You are running 7.4.26. in /home/istesharauser/public_html/chat_project/vendor/composer/platform_check.php on line 24
+[15-Dec-2021 13:06:47 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.0". You are running 7.4.26. in /home/istesharauser/public_html/chat_project/vendor/composer/platform_check.php on line 24
+[15-Dec-2021 13:08:16 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.0". You are running 7.4.26. in /home/istesharauser/public_html/chat_project/vendor/composer/platform_check.php on line 24
+[15-Dec-2021 13:09:01 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.0". You are running 7.4.26. in /home/istesharauser/public_html/chat_project/vendor/composer/platform_check.php on line 24
+[05-Jun-2022 13:46:00 UTC] PHP Fatal error:  Uncaught ReflectionException: Class App\Console\Kernel does not exist in /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src/Illuminate/Container/Container.php:877
+Stack trace:
+#0 /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src/Illuminate/Container/Container.php(877): ReflectionClass->__construct('App\\Console\\Ker...')
+#1 /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src/Illuminate/Container/Container.php(758): Illuminate\Container\Container->build('App\\Console\\Ker...')
+#2 /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(851): Illuminate\Container\Container->resolve('App\\Console\\Ker...', Array, false)
+#3 /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src/Illuminate/Container/Container.php(296): Illuminate\Foundation\Application->resolve('App\\Console\\Ker...', Array, false)
+#4 /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src in /home/istesharauser/public_html/chat_project/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 879

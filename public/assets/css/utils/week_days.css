@@ -1,0 +1,93 @@
+
+.days-checkbox-group {
+    text-align: center;
+}
+.days-checkbox-group ul {
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+.days-checkbox-group ul > li {
+    display: inline;
+}
+.days-checkbox-group input {
+    float: left;
+}
+.days-checkbox-group input {
+    display: none;
+}
+.days-checkbox-group ul > li > label {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #AAA;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    box-shadow: 0 5px 5px -6px rgba(0, 0, 0, 0.9) inset;
+    color: #444444;
+    background-color: #CCCCCC;
+    float: left;
+    font-family: helvetica;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 5px 12px 2px;
+    text-decoration: none;
+}
+.days-checkbox-group ul > li:first-child > label {
+    border-bottom-left-radius: 4px;
+    border-left-width: 1px;
+    border-top-left-radius: 4px;
+}
+.days-checkbox-group ul > li:last-child > label {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.days-checkbox-group ul > li > *:checked + label {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+
+    background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+    color: #FFFFFF;
+}
+.days-checkbox-group ul > li > *:checked + *:hover, .days-checkbox-group ul > li > *:checked + label:focus {
+    background-color: var(--primary-dark);
+    color: #fff;
+    background-image: none;
+}
+.days-checkbox-group ul > li > label:hover, .days-checkbox-group ul > li > label:focus {
+    background-color: #FFF;
+    background-image: none;
+    color: #333;
+    cursor: pointer;
+}
+.days-selected-text{
+    display:block;
+    text-align:center;
+    color:#999999;
+    font-size: 15px;
+}
+.days-week-box .header{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.days-week-box .header span{
+    display: inline-block;
+    border-bottom: 1px solid #aaa;
+    padding: 0 7px;
+}
+
+.days-week-box .time .form-group {font-size: 16px}
+.days-week-box .time .form-group label{
+    display: block;
+    color: #333;
+}
+.days-week-box .time .form-group input[type="time"]{
+    width: 70%;
+    padding: 7px 1px 7px 5px;
+}
