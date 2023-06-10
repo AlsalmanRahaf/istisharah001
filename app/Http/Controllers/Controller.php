@@ -24,7 +24,7 @@ class Controller extends BaseController
     }
 
     public function UserDoctorRates(){
-        $user = Doctor::find(1);
+        $user = Consultant::find(1);
 
         return $user->rateable;
     }

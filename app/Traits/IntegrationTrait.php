@@ -2,7 +2,8 @@
 
 namespace App\Traits;
 
-use App\Models\Doctor;
+use App\Models\Consultant;
+
 use App\Models\BookingMessage;
 use App\Models\ObjectBooking;
 use App\Models\ObjectDetails;
@@ -176,7 +177,7 @@ trait IntegrationTrait
     public function getObjectInfo(Request $request)
     {
         $repository = $this->getRepository("ObjectRepository");
-        $objectId = Doctor::where("id", $request->id)->first()->object_id;
+        $objectId = Consultant::where("id", $request->id)->first()->object_id;
         $object = $repository->getById($objectId);
         return response()->json([
             "status" => true,
@@ -190,15 +191,15 @@ trait IntegrationTrait
         return $repository->getById($id);
     }
 
-    public function doctorBookings(Request $request)
+    public function consultantBookings(Request $request)
     {
         $userId = Auth::user()->id;
-        $doctorInfo = Doctor::where("user_id", $userId)->first();
+        $consultantInfo = Consultant::where("user_id", $userId)->first();
         $todayDate = date('Y-m-d');
         $todayTime = date('H:i:s');
         $isExist = 0;
         if ($request->status == "finished") {
-            $bookings = ObjectBooking::where([["object_id", $doctorInfo->object_id],["is_cancelled", 0]])->get();
+            $bookings = ObjectBooking::where([["object_id", $consultantInfo->object_id],["is_cancelled", 0]])->get();
             for ($i = 0; $i < count($bookings); $i++) {
                 $slot = TimeSlot::where("id", $bookings[$i]->slot_id)->first();
                 if (($bookings[$i]->date < $todayDate) || ($bookings[$i]->date == $todayDate && $slot->time_to <= $todayTime)) {
@@ -226,7 +227,7 @@ trait IntegrationTrait
                 }
             }
         } elseif ($request->status == "unfinished") {
-            $bookings = ObjectBooking::where([["object_id", $doctorInfo->object_id],["is_cancelled", 0]])->get();
+            $bookings = ObjectBooking::where([["object_id", $consultantInfo->object_id],["is_cancelled", 0]])->get();
             for ($i = 0; $i < count($bookings); $i++) {
                 $slot = TimeSlot::where("id", $bookings[$i]->slot_id)->first();
                 if (($bookings[$i]->date > $todayDate) || ($bookings[$i]->date == $todayDate && $slot->time_to > $todayTime)) {
@@ -256,7 +257,7 @@ trait IntegrationTrait
             }
         }
         elseif ($request->status == "cancelled") {
-            $bookings = ObjectBooking::where([["object_id", $doctorInfo->object_id],["is_cancelled", 1]])->get();
+            $bookings = ObjectBooking::where([["object_id", $consultantInfo->object_id],["is_cancelled", 1]])->get();
             for ($i = 0; $i < count($bookings); $i++) {
                 $slot = TimeSlot::where("id", $bookings[$i]->slot_id)->first();
                 if (($bookings[$i]->is_cancelled == 1)) {

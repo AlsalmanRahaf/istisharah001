@@ -27,9 +27,9 @@
                 <select wire:model="object_id" name="object_id" wire:change="handleTime"  class="form-control @if($errors->has('object_id')) is-invalid @endif" style="margin: 5px 0px;height: 45px;background: none;padding:13px;border-radius: 7px" >
                     <option value="{{$user_doctor->object_id}}" wire:key="doctor-{{$user_doctor->object_id}}" selected>{{$user_doctor->full_name}}</option>
                     @if($doct)
-                        @foreach($doct as $index => $doctor)
-                            @if($doctor->object_id != $user_doctor->object_id)
-                            <option value="{{$doctor->object_id}}" wire:key="doctor-{{$doctor->object_id}}">{{ $doctor->full_name }}</option>
+                        @foreach($doct as $index => $consultant)
+                            @if($consultant->object_id != $user_doctor->object_id)
+                            <option value="{{$consultant->object_id}}" wire:key="doctor-{{$consultant->object_id}}">{{ $consultant->full_name }}</option>
                             @endif
                         @endforeach
                     @endif

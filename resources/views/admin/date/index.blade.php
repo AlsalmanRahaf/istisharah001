@@ -46,19 +46,19 @@
         <div class="col-md-12">
             <form action="{{route('admin.date.index')}}" method="get">
                 <div class="tile d-flex  align-items-center">
-                    <select class="form-control m-2 w-50  @if($errors->has('object_id')) is-invalid @endif" style="margin: 5px 0px;height: 45px;background: none;padding:13px;border-radius: 7px" name="object_id" id="doctors">
-                        @if(!is_null($selected_doctor))
-                            <option value="{{$selected_doctor->object_id}}" selected>{{$selected_doctor->full_name}}</option>
+                    <select class="form-control m-2 w-50  @if($errors->has('object_id')) is-invalid @endif" style="margin: 5px 0px;height: 45px;background: none;padding:13px;border-radius: 7px" name="object_id" id="consultants">
+                        @if(!is_null($selected_consultant))
+                            <option value="{{$selected_consultant->object_id}}" selected>{{$selected_consultant->full_name}}</option>
                         @else
-                            <option value="">--{{__('Select Doctor')}}--</option>
+                            <option value="">--{{__('Select consultant')}}--</option>
                         @endif
-                        @foreach($doctors as $doctor)
-                                @if(!is_null($selected_doctor))
-                                    @if($selected_doctor->object_id != $doctor->object_id)
-                                        <option value="{{$doctor->object_id}}">{{$doctor->full_name}}</option>
+                        @foreach($consultants as $consultant)
+                                @if(!is_null($selected_consultant))
+                                    @if($selected_consultant->object_id != $consultant->object_id)
+                                        <option value="{{$consultant->object_id}}">{{$consultant->full_name}}</option>
                                    @endif
                                 @else
-                                    <option value="{{$doctor->object_id}}">{{$doctor->full_name}}</option>
+                                    <option value="{{$consultant->object_id}}">{{$consultant->full_name}}</option>
                                 @endif
                         @endforeach
                     </select>
@@ -80,7 +80,7 @@
                                 <th>{{__("#ID")}}</th>
                                 <th>{{__("Booking Date")}}</th>
                                 <th>{{__("User Name")}}</th>
-                                <th>{{__("Doctor Name")}}</th>
+                                <th>{{__("consultant Name")}}</th>
                                 <th>{{__("Time From")}}</th>
                                 <th>{{__("Time To")}}</th>
                                 <th>{{__("Status")}}</th>
@@ -100,7 +100,7 @@
                                          $userName = \App\Models\UserBookings::where('reservation_record_id',$users->reservation_record_id)->first()
                                         @endphp
                                         <td>{{$users->user ? ($users->user->full_name ? $users->user->full_name : $userName->full_name) : $userName->full_name }}</td>
-                                        <td>{{$users->full_name ? $users->full_name :  "No Doctor Name" }}</td>
+                                        <td>{{$users->full_name ? $users->full_name :  "No consultant Name" }}</td>
                                         @php
                                             $slot_time = App\Models\TimeSlot::where('id',$users->slot_id)->first();
                                             $mytime = \Carbon\Carbon::now();
@@ -175,7 +175,7 @@
     <script type="text/javascript" src="{{asset("assets/js/plugins/dataTables.bootstrap.min.js")}}"></script>
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
     <script>
-        $("#doctors").select2({
+        $("#consultants").select2({
             width: "30%",
         });
         function hide(){

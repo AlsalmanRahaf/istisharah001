@@ -43,12 +43,8 @@ trait ZoomMeetingTrait
 
     public function zoomPost(string $path, array $body = [])
     {
-        $url = $this->retrieveZoomUrl();// return env('ZOOM_API_URL', '');
-        $request = $this->zoomRequest();//$jwt = $this->generateZoomToken();
-//        return \Illuminate\Support\Facades\Http::withHeaders([
-//            'authorization' => 'Bearer ' . $jwt,
-//            'content-type' => 'application/json',
-//        ]);
+        $url = $this->retrieveZoomUrl();
+        $request = $this->zoomRequest();
         return $request->post($url . $path, $body);
     }
 

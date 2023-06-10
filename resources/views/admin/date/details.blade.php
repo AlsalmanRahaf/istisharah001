@@ -161,8 +161,8 @@
                  <div class="col-lg-12" >
                      <div class="card mb-1" style="border: 1px solid #d2d2d2">
                          <div class="card-body text-center">
-                             @if($doctor)
-                                 <img src="{{$doctor->getFirstMediaFile('Doctors') ? $doctor->getFirstMediaFile('Doctors')->url : 'https://dashboard.medical001.digisolapps.com//assets/img/user_avatar.jpg'}}" alt="avatar"
+                             @if($consultant)
+                                 <img src="{{$consultant->getFirstMediaFile('Doctors') ? $consultant->getFirstMediaFile('Doctors')->url : 'https://dashboard.medical001.digisolapps.com//assets/img/user_avatar.jpg'}}" alt="avatar"
                                       class="rounded-circle img-fluid" style="width:110px;height:100px"/>
                              @endif
                              <h5 class="my-3">{{$users_booking->full_name}}</h5>
@@ -195,8 +195,8 @@
                              @endif
                              <hr>
                              @php
-                                 if ($doctor){
-                                     $Specializations = \App\Models\Specialization::where('id',$doctor->specialization_id)->first();
+                                 if ($consultant){
+                                     $Specializations = \App\Models\Specialization::where('id',$consultant->specialization_id)->first();
                                  }
                              @endphp
                              <div class="row">
@@ -213,7 +213,7 @@
                                      <p class="mb-0">{{__('Has Zoom')}}</p>
                                  </div>
                                  <div class="col-sm-9">
-                                     <p class="text-muted mb-0">{{\Illuminate\Support\Facades\App::getLocale() == 'en' ? ($doctor->has_zoom == 1 ? "The doctor has a zoom" : "The Doctor has no Zoom") : ($doctor->has_zoom == 1 ? "الطبيب لديه زوم" : "الطبيب ليس لديه زوم")}}</p>
+                                     <p class="text-muted mb-0">{{\Illuminate\Support\Facades\App::getLocale() == 'en' ? ($consultant->has_zoom == 1 ? "The doctor has a zoom" : "The Doctor has no Zoom") : ($consultant->has_zoom == 1 ? "الطبيب لديه زوم" : "الطبيب ليس لديه زوم")}}</p>
                                  </div>
                              </div>
                          </div>

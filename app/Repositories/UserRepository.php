@@ -42,7 +42,7 @@ class UserRepository
             "status" => $user->status,
             "phone_number" => $user->phone_number,
             "custom_type"=>$this->getCustomType($user->id),
-            "is_doctor" => false,
+            "is_consultant" => false,
             "photo_profile" => $user->getFirstMediaFile("profile_photo") ? $user->getFirstMediaFile("profile_photo")->url : null,
         ];
         if($user->type == "u"){

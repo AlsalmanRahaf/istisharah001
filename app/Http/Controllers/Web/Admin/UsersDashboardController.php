@@ -129,6 +129,7 @@ class UsersDashboardController extends Controller
     }
 
     public function saveProfile(Request $request){
+
         $rules = $this->rules();
         $user = auth()->user();
         $rules['role'] =[];
@@ -155,6 +156,7 @@ class UsersDashboardController extends Controller
             $user->password = $request->password;
         if(!empty($request->file("profile_photo"))){
             $file = $user->directory_path . $user->profile_photo;
+            dd($file);
             if(File::exists($file)) {
                 File::delete($file);
             }

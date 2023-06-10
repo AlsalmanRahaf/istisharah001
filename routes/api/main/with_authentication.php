@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\users\BookingController;
 use App\Http\Controllers\Api\SpecializationController;
-use App\Http\Controllers\Api\DoctorController;
+use App\Http\Controllers\Api\ConsultantController;
 
 
 Route::prefix("profile")->group(function (){
@@ -33,8 +33,8 @@ Route::prefix("sliders")->group(function (){
     Route::get("/show", "slider\SliderController@index");
     Route::post("/create", "slider\SliderController@create");
 });
-Route::prefix("doctor")->group(function (){
-    Route::get("/info/{doctorID}", "DoctorInfoController@index");
+Route::prefix("consultant")->group(function (){
+    Route::get("/info/{ConsultantID}", "ConsultantInfoController@index");
 });
 
 Route::prefix("room")->group(function (){
@@ -131,9 +131,9 @@ Route::prefix("AppSetting")->group(function (){
 Route::get('/get-all-specialization' , [SpecializationController::class, 'getAllSpecialization']);
 
 // Doctor APIs
-Route::prefix("doctor")->group(function (){
-    Route::get('/get-all-doctors-by-specialization/{specialization_id}' , [DoctorController::class, 'getAllDoctorsBySpecialization']);
-    Route::post('/get-doctor-time-slots' , [DoctorController::class, 'getDoctorTimeSlots']);
+Route::prefix("consultant")->group(function (){
+    Route::get('/get-all-consultants-by-specialization/{specialization_id}' , [ConsultantController::class, 'getAllConsultantsBySpecialization']);
+    Route::post('/get-consultant-time-slots' , [ConsultantController::class, 'getConsultantTimeSlots']);
 });
 
 Route::prefix("SaveMessageMedia")->group(function () {
@@ -150,8 +150,8 @@ Route::prefix("user-bookings")->group(function (){
     Route::post('/add-booking-rating' , [BookingController::class, 'addBookingRating']);
 });
 
-Route::prefix("doctor-bookings")->group(function (){
-    Route::get("/{status}", [BookingController::class, "getDoctorBookings"]);
-    Route::get("/get-booking-details/{id}", [BookingController::class, "getDoctorBookingDetails"]);
+Route::prefix("consultant-bookings")->group(function (){
+    Route::get("/{status}", [BookingController::class, "getConsultantBookings"]);
+    Route::get("/get-booking-details/{id}", [BookingController::class, "getConsultantBookingDetails"]);
 });
 

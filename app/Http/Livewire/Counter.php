@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire;
-use App\Models\Doctor;
+use App\Models\Consultant;
 use App\Models\ObjectBooking;
 use App\Models\ObjectDetails;
 use App\Models\ObjectWeekDays;
@@ -24,20 +24,20 @@ class Counter extends Component
         $user_id,
         $doct,
         $data,
-        $doctors,
+        $Consultants,
         $is_online,
-        $doctor,
-        $user_doctor,
+        $Consultant,
+        $user_Consultant,
         $res_id,
         $time,
         $week_day,
-        $newDoctor,
+        $newConsultant,
         $patient,
-        $oldDoctor,
+        $oldConsultant,
         $object_week_days,
         $flag = false,
         $onlineFlag = false,
-        $onlineDoctor,
+        $onlineConsultant,
         $createFlag = false,
         $collection,
         $date,
@@ -54,14 +54,14 @@ class Counter extends Component
         $this->user_object_booking1= ObjectBooking::where('reservation_record_id',$this->res_id)->first();
         $this->user_object_booking= ObjectBooking::where('reservation_record_id',$this->res_id)->first()->date ?? $this->user_object_booking;
         $this->user_slot_time = TimeSlot::where('id',$this->user_object_booking1->slot_id)->first();
-        $this->user_doctor = Doctor::where('object_id', $this->user_object_booking1->object_id)->first();
+        $this->user_Consultant = Consultant::where('object_id', $this->user_object_booking1->object_id)->first();
         if ($this->user_object_booking1->is_online == 1){
-            $this->OnlineDoctorData();
+            $this->OnlineConsultantData();
         }else{
-            $this->OfflineDoctorData();
+            $this->OfflineConsultantData();
         }
         $this->object_week_days = ObjectWeekDays::where('id', $this->user_slot_time->object_week_days_id)->first();
-        $this->object_id = $this->user_doctor->object_id ?? $this->object_id ;
+        $this->object_id = $this->user_Consultant->object_id ?? $this->object_id ;
         $this->handleTime($request);
 
     }
@@ -69,17 +69,17 @@ class Counter extends Component
         $this->flag = true;
         $this->createFlag = true;
         if($this->is_online == 1){
-            $this->OnlineDoctorData();
+            $this->OnlineConsultantData();
         }else{
-            $this->OfflineDoctorData();
+            $this->OfflineConsultantData();
         }
     }
 
-    public function OnlineDoctorData(){
-        $this->doct = Doctor::where('has_zoom',1)->where('user_id','!=',$this->user_id)->get();
+    public function OnlineConsultantData(){
+        $this->doct = Consultant::where('has_zoom',1)->where('user_id','!=',$this->user_id)->get();
     }
-    public function OfflineDoctorData(){
-        $this->doct = Doctor::where('user_id','!=',$this->user_id)->get();
+    public function OfflineConsultantData(){
+        $this->doct = Consultant::where('user_id','!=',$this->user_id)->get();
     }
     public function SetClicked(Request $request)
     {
@@ -89,13 +89,13 @@ class Counter extends Component
     }
 
     public function handleTime(Request $request){
-        $this->onlineDoctor = Doctor::where('object_id',$this->object_id)->first();
-        if ($this->onlineDoctor->has_zoom == 1){
+        $this->onlineConsultant = Consultant::where('object_id',$this->object_id)->first();
+        if ($this->onlineConsultant->has_zoom == 1){
             $this->onlineFlag = true;
         }else{
             $this->onlineFlag = false;
         }
-        if (($this->user_doctor->object_id && $this->object_id) || ($this->object_id && $this->user_object_booking)){
+        if (($this->user_Consultant->object_id && $this->object_id) || ($this->object_id && $this->user_object_booking)){
             $this->flag = true;
         }
         $this->createFlag = false;
@@ -114,8 +114,8 @@ class Counter extends Component
             $this->objectTimeSlotType = ObjectDetails::where("id", $this->object_id)->first();
             $checkDate = ObjectWeekDays::where([["time_slot_type_id", $this->objectTimeSlotType->time_slot_type_id], ["week_day_number", $this->dayNumber]])->exists();
             if ($checkDate) {
-                $this->doctors = Doctor::where('object_id', '=', $this->object_id)->first();
-                $this->time = ObjectDetails::where('description', $this->doctors->full_name)->first();
+                $this->Consultants = Consultant::where('object_id', '=', $this->object_id)->first();
+                $this->time = ObjectDetails::where('description', $this->Consultants->full_name)->first();
                 if ($this->time) {
                     $this->week_day = ObjectWeekDays::where('time_slot_type_id', $this->time->time_slot_type_id)->get();
                     if ($this->week_day) {
@@ -184,8 +184,8 @@ class Counter extends Component
             $this->createFlag = true;
         }
     }
-    public function doctorData(){
-        $this->doct = Doctor::all();
+    public function ConsultantData(){
+        $this->doct = Consultant::all();
     }
     public function userData(){
         $this->users = User::all();

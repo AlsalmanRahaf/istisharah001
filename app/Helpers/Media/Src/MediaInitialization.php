@@ -6,6 +6,7 @@ use App\Helpers\Media\Models\Media;
 use App\Models\MediaType;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 trait MediaInitialization {
 
@@ -33,7 +34,12 @@ trait MediaInitialization {
 
 
     public function upload($file, $directoryPath){
-        $imageName = time() . rand(0,100000000000) * 35 . "." . $file->getClientOriginalExtension();
+        if (!file_exists($directoryPath)) {
+            File::makeDirectory($directoryPath, 0777, true);
+        }
+      $imageName = time() . rand(0,100000000000) * 35 . "." . $file->getClientOriginalExtension();
+//       $resizeImg= Image::make($file->getRealPath());
+//        $resizeImg->resize(300, 300)->save($directoryPath . DS . $imageName);
         $file->move($directoryPath, $imageName);
         return $imageName;
     }
@@ -79,13 +85,21 @@ trait MediaInitialization {
                 throw new \Exception("the group is not found or the initialize it is incomplete.s");
             $groupPath = trim($this->groups[$group]["path"], config("global.ds"));
 
-            $uploadPath = $this->uploadMainPath . config("global.ds") .  $this->id . ($groupPath ? config("global.ds") . $groupPath : '') ;
+            if($group == "Consultant Photo" || $group == "Consultant Documents"){
+                $uploadPath = $this->uploadMainPath . config("global.ds") .  $this->id . config("global.ds") . $group . ($groupPath ? config("global.ds") . $groupPath : '') ;
+                $path = $this->urlMainPath. '/' . $this->id . ($groupPath ? '/' . $groupPath : '') . '/' . $group;
+            }else {
+                $uploadPath = $this->uploadMainPath . config("global.ds") . $this->id . ($groupPath ? config("global.ds") . $groupPath : '');
+                $path = $this->urlMainPath. '/' . $this->id . ($groupPath ? '/' . $groupPath : '');
+            }
+
             $media = new Media();
             $filename = $this->upload($file, $uploadPath);
             $media->filename = $filename;
             $media->group = $group;
-            $media->path = $this->urlMainPath. '/' . $this->id . ($groupPath ? '/' . $groupPath : '');
+            $media->path = $path;
             return $media;
+
         }catch (\Exception $e){
             die($e->getMessage());
         }
@@ -98,8 +112,11 @@ trait MediaInitialization {
      * @param  UploadedFile  $path
      */
     public function saveMedia(UploadedFile $file, $group = "main"){
+
         $media = $this->initizeMedia($file, $group);
         return $this->files($this->groups[$group]["type"])->save($media);
+
+
     }
 
     public function removeMedia($media){

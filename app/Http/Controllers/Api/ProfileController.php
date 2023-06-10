@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
+
     protected ProfileRepository $repository;
 
     public function __construct(ProfileRepository $repository)
@@ -25,6 +26,7 @@ class ProfileController extends Controller
 
     public function show(Request $request)
     {
+        dd("jkjkjkjk");
         $user = Auth::guard("api")->user();
         return JsonResponse::data(ProfileResource::make($user))->send();
     }

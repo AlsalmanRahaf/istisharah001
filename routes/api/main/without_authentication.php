@@ -2,7 +2,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ZoomController;
 use App\Http\Controllers\Api\ConsultantRequestController;
-use App\Models\ConsultantRequest;
 
 Route::post("/update_user_status", "users\UsersController@Update");
 Route::post('/save_message_media', "MessageMediaController@index");
@@ -102,9 +101,4 @@ Route::get("getCouponByUser/{phone_number}","coupon_controller@getCouponByUser")
 Route::post("checkValidCoupon","coupon_controller@checkValidCoupon");
 Route::post("use_coupon","coupon_controller@useCoupon");
 
-//Route::get('/Consultants', [ConsultantRequestController::class, 'index']);
-Route::post('/Consultants', [ConsultantRequestController::class,'add']);
-
-
-
-
+Route::post('/Consultants', [ConsultantRequestController::class,'store']);

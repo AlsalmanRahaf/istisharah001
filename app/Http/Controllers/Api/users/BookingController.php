@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\users;
 use App\Http\Controllers\Controller;
 use App\Models\BookingRating;
 use App\Models\CancelledBooking;
+use App\Models\Consultant;
+use App\Models\consultation;
 use App\Models\Doctor;
 use App\Models\BookingMessage;
 use App\Models\ObjectBooking;
@@ -57,11 +59,11 @@ class BookingController extends Controller
                     $bookingsArr[$i]["slot_to"] = $newFormatTo;
                     $bookingsArr[$i]["day"] = $request->lang == "ar" ? $day->week_day_ar_name : $day->week_day_en_name;
                     $bookingsArr[$i]["is_online"] = $bookings[$i]->is_online;
-                    $doctor = Doctor::where("object_id", $bookings[$i]->object_id)->first();
-                    $bookingsArr[$i]["doctor_name"] = $doctor->full_name;
-                    $bookingsArr[$i]["doctor_id"] = $doctor->id;
-                    $imageData = $doctor->getFirstMediaFile("Doctors");
-                    $bookingsArr[$i]["doctor_image"] = $imageData != null ? env("APP_PATH") . $imageData["path"] . "/" . $imageData["filename"] : null;
+                    $consultant = Consultant::where("object_id", $bookings[$i]->object_id)->first();
+                    $bookingsArr[$i]["consultant_name"] = $consultant->full_name;
+                    $bookingsArr[$i]["consultant_id"] = $consultant->id;
+                    $imageData = $consultant->getFirstMediaFile("Doctors");
+                    $bookingsArr[$i]["consultant_image"] = $imageData != null ? env("APP_PATH") . $imageData["path"] . "/" . $imageData["filename"] : null;
                     $dataArray[] = $bookingsArr[$i];
                 }
             }
@@ -84,11 +86,11 @@ class BookingController extends Controller
                     $bookingsArr[$i]["slot_to"] = $newFormatTo;
                     $bookingsArr[$i]["day"] = $request->lang == "ar" ? $day->week_day_ar_name : $day->week_day_en_name;
                     $bookingsArr[$i]["is_online"] = $bookings[$i]->is_online;
-                    $doctor = Doctor::where("object_id", $bookings[$i]->object_id)->first();
-                    $bookingsArr[$i]["doctor_name"] = $doctor->full_name;
-                    $bookingsArr[$i]["doctor_id"] = $doctor->id;
-                    $imageData = $doctor->getFirstMediaFile("Doctors");
-                    $bookingsArr[$i]["doctor_image"] = $imageData != null ? env("APP_PATH") . $imageData["path"] . "/" . $imageData["filename"] : null;
+                    $consultant = Consultant::where("object_id", $bookings[$i]->object_id)->first();
+                    $bookingsArr[$i]["consultant_name"] = $consultant->full_name;
+                    $bookingsArr[$i]["consultant_id"] = $consultant->id;
+                    $imageData = $consultant->getFirstMediaFile("Doctors");
+                    $bookingsArr[$i]["consultant_image"] = $imageData != null ? env("APP_PATH") . $imageData["path"] . "/" . $imageData["filename"] : null;
                     if($bookingsArr[$i]["is_online"]){
                         $time = Carbon::parse($newFormatFrom);
                         $timeBefore5Min = $time->subMinutes(5)->format('H:i:s');
@@ -121,11 +123,11 @@ class BookingController extends Controller
                 $bookingsArr[$i]["slot_to"] = $newFormatTo;
                 $bookingsArr[$i]["day"] = $request->lang == "ar" ? $day->week_day_ar_name : $day->week_day_en_name;
                 $bookingsArr[$i]["is_online"] = $bookings[$i]->is_online;
-                $doctor = Doctor::where("object_id", $bookings[$i]->object_id)->first();
-                $bookingsArr[$i]["doctor_name"] = $doctor->full_name;
-                $bookingsArr[$i]["doctor_id"] = $doctor->id;
-                $imageData = $doctor->getFirstMediaFile("Doctors");
-                $bookingsArr[$i]["doctor_image"] = $imageData != null ? env("APP_PATH") . $imageData["path"] . "/" . $imageData["filename"] : null;
+                $consultant = Consultant::where("object_id", $bookings[$i]->object_id)->first();
+                $bookingsArr[$i]["consultant_name"] = $consultant->full_name;
+                $bookingsArr[$i]["consultant_id"] = $consultant->id;
+                $imageData = $consultant->getFirstMediaFile("Doctors");
+                $bookingsArr[$i]["consultant_image"] = $imageData != null ? env("APP_PATH") . $imageData["path"] . "/" . $imageData["filename"] : null;
                 $dataArray[] = $bookingsArr[$i];
             }
         }
@@ -152,10 +154,10 @@ class BookingController extends Controller
     {
         return $this->getById($request);
     }
-    public function getDoctorBookings(Request $request){
-        return $this->doctorBookings($request);
+    public function getConsultantBookings(Request $request){
+        return $this->consultantBookings($request);
     }
-    public function getDoctorBookingDetails(Request $request)
+    public function getConsultantBookingDetails(Request $request)
     {
         $repository = $this->getRepository("ObjectBookingRepository");
         return $repository->getById($request);
@@ -181,11 +183,11 @@ class BookingController extends Controller
                 $timeTo = strtotime($slotTime->time_to);
                 $newFormatFrom = date('H:i', $timeFrom);
                 $newFormatTo = date('H:i', $timeTo);
-                $doctor = Doctor::where("object_id", $booking->object_id)->first();
+                $consultant= Consultant::where("object_id", $booking->object_id)->first();
                 $userId = UserBookings::where("reservation_record_id", $booking->reservation_record_id)->first()->user_id;
                 $user = User::where("id", $userId)->first();
-                if (Auth::user()->id == $doctor->user_id)
-                    $cancelledBy = $doctor->full_name;
+                if (Auth::user()->id == $userId->consultant_id)
+                    $cancelledBy = $consultant->full_name;
                 else
                     $cancelledBy = User::where("id", Auth::user()->id)->first()->full_name;
                 $userNotificationMsg = $this->getNotificationTextDetails("cancel_booking", ["name" => $cancelledBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
@@ -206,28 +208,28 @@ class BookingController extends Controller
                 $userNot->is_sent = 1;
                 $userNot->save();
 
-                $checkDoctor = User::where("id", $doctor->user_id);
-                if($checkDoctor->exists()){
-                    $doctorNotificationLang = User::where("id", $doctor->user_id)->first()->notification_lang;
-                    $doctorNotificationMsg = $this->getNotificationTextDetails("cancel_booking", ["name" => $cancelledBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
-                    $doctorNotificationTitle = $doctorNotificationMsg['title'][$doctorNotificationLang];
-                    $doctorNotificationBody = $doctorNotificationMsg['body'][$doctorNotificationLang];
+                $checkConsultant = User::where("id", $consultant->user_id);
+                if($checkConsultant->exists()){
+                    $consultantNotificationLang = User::where("id", $consultant->user_id)->first()->notification_lang;
+                    $consultantNotificationMsg = $this->getNotificationTextDetails("cancel_booking", ["name" => $cancelledBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
+                    $consultantNotificationTitle = $consultantNotificationMsg['title'][$consultantNotificationLang];
+                    $consultantNotificationBody = $consultantNotificationMsg['body'][$consultantNotificationLang];
 
-                    $doctorNotification = new Notifications();
-                    $doctorNotification->title = $doctorNotificationTitle;
-                    $doctorNotification->body = $doctorNotificationBody;
-                    $doctorNotification->user_id = $doctor->user_id;
-                    $doctorNotification->type = 1;
-                    $doctorNotification->status = 1;
-                    $doctorNotification->save();
-                    $checkDoctor = $checkDoctor->first();
-                    $doctorDeviceToken = $checkDoctor->device_token;
-                    $doctorDeviceTokens = $checkDoctor->user_device_token->pluck("device_token")->toArray();
-                    array_push($doctorDeviceTokens,$doctorDeviceToken);
-                    $this->sendFirebaseNotificationCustom(["title" => $doctorNotificationTitle, "body" => $doctorNotificationBody], $doctorDeviceTokens);
-                    $doctorNot = Notifications::find($doctorNotification->id);
-                    $doctorNot->is_sent = 1;
-                    $doctorNot->save();
+                    $consultantNotification = new Notifications();
+                    $consultantNotification->title = $consultantNotificationTitle;
+                    $consultantNotification->body = $consultantNotificationBody;
+                    $consultantNotification->user_id = $consultant->user_id;
+                    $consultantNotification->type = 1;
+                    $consultantNotification->status = 1;
+                    $consultantNotification->save();
+                    $checkConsultant = $checkConsultant->first();
+                    $consultantDeviceToken = $checkConsultant->device_token;
+                    $consultantDeviceTokens = $checkConsultant->user_device_token->pluck("device_token")->toArray();
+                    array_push($consultantDeviceTokens,$consultantDeviceToken);
+                    $this->sendFirebaseNotificationCustom(["title" => $consultantNotificationTitle, "body" => $consultantNotificationBody], $consultantDeviceTokens);
+                    $consultantNot = Notifications::find($consultantNotification->id);
+                    $consultantNot->is_sent = 1;
+                    $consultantNot->save();
                 }
                 DB::commit();
                 return response()->json([
@@ -272,7 +274,7 @@ class BookingController extends Controller
 
         $rating = new BookingRating();
         $rating->rated_by = Auth::user()->id;
-        $rating->rated_doctor = $request->doctor_id;
+        $rating->rated_consultant = $request->consultant_id;
         $rating->user_booking_id = $request->booking_id;
         $rating->rating_value = $request->value;
         $rating->notes = $request->notes;

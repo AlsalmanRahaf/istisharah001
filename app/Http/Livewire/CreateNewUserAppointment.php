@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 use App\Models\BookingNotificationReminder;
 use App\Models\BookingNotificationTime;
-use App\Models\Doctor;
+use App\Models\consultant;
 use App\Models\Notifications;
 use App\Models\ObjectBooking;
 use App\Models\ObjectDetails;
@@ -43,12 +43,12 @@ class CreateNewUserAppointment extends Component
            $is_online,
            $user_object_booking,
            $slotTime,
-           $doctors,
+           $consultants,
            $doct,
            $data,
            $slot_time,
            $days,
-           $doctor,
+           $consultant,
            $time,
            $week_day,
            $object_week_days,
@@ -92,9 +92,9 @@ class CreateNewUserAppointment extends Component
         $this->createFlag = false;
 
         if($this->is_online == 1){
-            $this->OnlineDoctorData();
+            $this->OnlineconsultantData();
         }else{
-            $this->OfflineDoctorData();
+            $this->OfflineconsultantData();
         }
     }
     public function SetClicked(Request $request)
@@ -124,8 +124,8 @@ class CreateNewUserAppointment extends Component
             $this->objectTimeSlotType = ObjectDetails::where("id", $this->object_id)->first();
             $checkDate = ObjectWeekDays::where([["time_slot_type_id", $this->objectTimeSlotType->time_slot_type_id], ["week_day_number", $this->dayNumber]])->exists();
             if ($checkDate) {
-                $this->doctors = Doctor::where('object_id', '=', $this->object_id)->first();
-                $this->time = ObjectDetails::where('description', $this->doctors->full_name)->first();
+                $this->consultants = Consultant::where('object_id', '=', $this->object_id)->first();
+                $this->time = ObjectDetails::where('description', $this->consultants->full_name)->first();
                 if ($this->time) {
                     $this->week_day = ObjectWeekDays::where('time_slot_type_id', $this->time->time_slot_type_id)->get();
                     if ($this->week_day) {
@@ -195,11 +195,11 @@ class CreateNewUserAppointment extends Component
             }
     }
 
-    public function OnlineDoctorData(){
-        $this->doct = Doctor::where('has_zoom',1)->get();
+    public function OnlineconsultantData(){
+        $this->doct = consultant::where('has_zoom',1)->get();
     }
-    public function OfflineDoctorData(){
-        $this->doct = Doctor::all();
+    public function OfflineconsultantData(){
+        $this->doct = consultant::all();
     }
     public function store(Request $request){
         $dt = strtotime($this->user_object_booking);
@@ -265,17 +265,17 @@ class CreateNewUserAppointment extends Component
                             $timeTo = strtotime($slotTime->time_to);
                             $newFormatFrom = date('H:i', $timeFrom);
                             $newFormatTo = date('H:i', $timeTo);
-                            $doctor = Doctor::where("object_id", $this->object_id)->first();
+                            $consultant = consultant::where("object_id", $this->object_id)->first();
                             $userId = UserBookings::where("reservation_record_id", $user_booking->reservation_record_id)->first()->user_id;
                             if (!$userId) {
                                 return redirect()->route('admin.date.index');
                             }
                             $user = User::where("id", $userId)->first();
-                            $doctorNotificationLang = User::where("id", $doctor->user_id)->first()->notification_lang;
-                            $userNotificationMsg = $this->getNotificationTextDetails("new_booking", ["name" => $doctor->full_name, "type" => $this->is_online, "date" => $this->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
-                            $doctorNotificationMsg = $this->getNotificationTextDetails("new_booking", ["name" => $user->full_name, "type" => $this->is_online, "date" => $this->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
-                            $doctorNotificationTitle = $doctorNotificationMsg['title'][$doctorNotificationLang];
-                            $doctorNotificationBody = $doctorNotificationMsg['body'][$doctorNotificationLang];
+                            $consultantNotificationLang = User::where("id", $consultant->user_id)->first()->notification_lang;
+                            $userNotificationMsg = $this->getNotificationTextDetails("new_booking", ["name" => $consultant->full_name, "type" => $this->is_online, "date" => $this->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
+                            $consultantNotificationMsg = $this->getNotificationTextDetails("new_booking", ["name" => $user->full_name, "type" => $this->is_online, "date" => $this->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
+                            $consultantNotificationTitle = $consultantNotificationMsg['title'][$consultantNotificationLang];
+                            $consultantNotificationBody = $consultantNotificationMsg['body'][$consultantNotificationLang];
                             $userNotificationTitle = $userNotificationMsg['title'][$user->notification_lang];
                             $userNotificationBody = $userNotificationMsg['body'][$user->notification_lang];
                             $userNotification = new Notifications();
@@ -285,35 +285,35 @@ class CreateNewUserAppointment extends Component
                             $userNotification->type = 1;
                             $userNotification->status = 1;
                             $userNotification->save();
-                            $doctorNotification = new Notifications();
-                            $doctorNotification->title = $doctorNotificationTitle;
-                            $doctorNotification->body = $doctorNotificationBody;
-                            $doctorNotification->user_id = $doctor->user_id;
-                            $doctorNotification->type = 1;
-                            $doctorNotification->status = 1;
-                            $doctorNotification->save();
+                            $consultantNotification = new Notifications();
+                            $consultantNotification->title = $consultantNotificationTitle;
+                            $consultantNotification->body = $consultantNotificationBody;
+                            $consultantNotification->user_id = $consultant->user_id;
+                            $consultantNotification->type = 1;
+                            $consultantNotification->status = 1;
+                            $consultantNotification->save();
                             $userDevicetoken = $this->getTokens(User::findMany($userId));
-                            $doctorDevicetoken = $this->getTokens(User::findMany($doctor->user_id));
+                            $consultantDevicetoken = $this->getTokens(User::findMany($consultant->user_id));
                             $otherUserDevicesToken = UserDeviceToken::where("user_id", $userId)->get("device_token");
                             if (count($otherUserDevicesToken) > 0) {
                                 for ($i = 0; $i < count($otherUserDevicesToken); $i++) {
                                     $userDevicetoken[] = $otherUserDevicesToken[$i]->device_token;
                                 }
                             }
-                            $otherDoctorDevicesToken = UserDeviceToken::where("user_id", $doctor->user_id)->get("device_token");
-                            if (count($otherDoctorDevicesToken) > 0) {
-                                for ($i = 0; $i < count($otherDoctorDevicesToken); $i++) {
-                                    $doctorDevicetoken[] = $otherDoctorDevicesToken[$i]->device_token;
+                            $otherconsultantDevicesToken = UserDeviceToken::where("user_id", $consultant->user_id)->get("device_token");
+                            if (count($otherconsultantDevicesToken) > 0) {
+                                for ($i = 0; $i < count($otherconsultantDevicesToken); $i++) {
+                                    $consultantDevicetoken[] = $otherconsultantDevicesToken[$i]->device_token;
                                 }
                             }
                             $this->sendFirebaseNotificationCustom(["title" => $userNotificationTitle, "body" => $userNotificationBody], $userDevicetoken);
                             $userNot = Notifications::find($userNotification->id);
                             $userNot->is_sent = 1;
                             $userNot->save();
-                            $this->sendFirebaseNotificationCustom(["title" => $doctorNotificationTitle, "body" => $doctorNotificationBody], $doctorDevicetoken);
-                            $doctorNot = Notifications::find($doctorNotification->id);
-                            $doctorNot->is_sent = 1;
-                            $doctorNot->save();
+                            $this->sendFirebaseNotificationCustom(["title" => $consultantNotificationTitle, "body" => $consultantNotificationBody], $consultantDevicetoken);
+                            $consultantNot = Notifications::find($consultantNotification->id);
+                            $consultantNot->is_sent = 1;
+                            $consultantNot->save();
 
                             $this->notificationReminders($object_booking->id,$object_booking->date);
 

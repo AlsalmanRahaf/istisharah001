@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => env('TIME_ZONE', 'UTC'),
+    'timezone' => 'Asia/Riyadh',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
 
     'fallback_locale' => 'en',
 
-    'languages' => ["en" => "English","ar" => "عربي"],
+    'languages' => ["en" => "English","ar" => "عربي", "ur" => "اوردو"],
 
     /*
     |--------------------------------------------------------------------------
@@ -163,13 +163,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+       Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
         Kreait\Laravel\Firebase\ServiceProvider::class,
-        ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,8 +233,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class,
-
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Admin\SpecializationController;
-use App\Http\Controllers\Web\Admin\DoctorController;
+use App\Http\Controllers\Web\Admin\ConsultantController;
 use App\Http\Controllers\Web\Admin\BookingNotificationReminderController;
 
 Route::get("/","DashboardController@index")->name("dashboard.index");
@@ -189,14 +189,14 @@ Route::prefix("specialization")->name("specialization.")->group(function (){
     Route::get("/cancel", [SpecializationController::class,'cancel'])->name("cancel");
 });
 
-Route::prefix("doctor")->name("doctor.")->group(function (){
-    Route::get("/index", [DoctorController::class,'index'])->name("index");
-    Route::get("/create", [DoctorController::class,'create'])->name("create");
-    Route::post("/store", [DoctorController::class,'store'])->name("store");
-    Route::get("/edit/{id}", [DoctorController::class,'edit'])->name("edit");
-    Route::post("/update/{id}", [DoctorController::class,'update'])->name("update");
-    Route::delete("/destroy", [DoctorController::class,'destroy'])->name("destroy");
-    Route::get("/cancel", [DoctorController::class,'cancel'])->name("cancel");
+Route::prefix("consultant")->name("consultant.")->group(function (){
+    Route::get("/index", [ConsultantController::class,'index'])->name("index");
+    Route::get("/create", [ConsultantController::class,'create'])->name("create");
+    Route::post("/store", [ConsultantController::class,'store'])->name("store");
+    Route::get("/edit/{id}", [ConsultantController::class,'edit'])->name("edit");
+    Route::post("/update/{id}", [ConsultantController::class,'update'])->name("update");
+    Route::delete("/destroy", [ConsultantController::class,'destroy'])->name("destroy");
+    Route::get("/cancel", [ConsultantController::class,'cancel'])->name("cancel");
 });
 
 Route::prefix("notification-reminder")->name("notification-reminder.")->group(function (){
@@ -269,7 +269,14 @@ Route::get("orders/{id}/details","OrderController@details")->name("orders.detail
 Route::post("orders/export/excel","OrderController@exportExcelFile")->name("orders.export.excel");
 Route::resource("slider_market", "SliderController");
 
+Route::get("/consultantrequest","FormRegisterController@index")->name("consultantrequest.index");;
+Route::post("/{id}/accept", "FormRegisterController@accept")->name("accept");
+//Route::post("/{id}/not_accept", "FormRegisterController@not_accept")->name("not_accept");
 
+
+//Route::get("consultants/{id}/details","OrderController@details")->name("nameorders.details");
+
+//Route::post("/", "FormRegisterController@store");
 
 Route::resource("WelcomeMessage", "WelcomeMessageController");
 

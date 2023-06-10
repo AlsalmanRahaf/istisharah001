@@ -3,8 +3,11 @@
 namespace App\Models;
 
 
+use App\Helpers\Media\Src\MediaGroups;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Role;
+use App\Helpers\Media\Src\MediaInitialization;
+use App\Helpers\Media\Src\IMedia;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,6 +30,16 @@ class UsersDashboard extends Authenticatable
     ];
     protected $appends = ["directory_path", "photo_path"];
     protected $table="users_dashboards";
+
+//    const IMAGE_PATH = "UserProfile";
+//    public function setMainDirectoryPath(): string
+//    {
+//        return self::IMAGE_PATH;
+//    }
+//    public function setGroups(): MediaGroups
+//    {
+//        return (new MediaGroups())->setGroup("single", "Doctors", DS);
+//    }
 
     /**
      * The attributes that should be hidden for arrays.

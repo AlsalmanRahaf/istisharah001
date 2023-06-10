@@ -31,7 +31,7 @@
                                                 <div class="col-sm-12">
                                                     <p>{{__('Old Booking Info')}}</p>
                                                        <div style="display: flex;flex-wrap: wrap;flex-direction: row">
-                                                        <span class="btn btn-danger disabled m-1">{{__('Doctor Name')}}: {{$user_doctor ? $user_doctor->full_name : 'NO Name'}}</span>
+                                                        <span class="btn btn-danger disabled m-1">{{__('consultant Name')}}: {{$user_consultant ? $user_consultant->full_name : 'NO Name'}}</span>
                                                         <span class="btn btn-danger disabled m-1">{{__('Date')}} : {{$user_object_booking->date ?? 'NO Date'}}</span>
                                                         <span class="btn btn-danger disabled m-1">{{__('Patient Name')}} : {{$user_booking ?? 'NO Name'}}</span>
                                                     </div>

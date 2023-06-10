@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire;
 use App\Models\CancelledBooking;
-use App\Models\Doctor;
+use App\Models\Consultant;
+
 use App\Models\Notifications;
 use App\Models\ObjectBooking;
 use App\Models\ObjectDetails;
@@ -62,21 +63,21 @@ class Cancellation extends Component
                     $timeTo = strtotime($slotTime->time_to);
                     $newFormatFrom = date('H:i', $timeFrom);
                     $newFormatTo = date('H:i', $timeTo);
-                    $doctor = Doctor::where("object_id", $booking->object_id)->first();
+                    $consultant = Consultant::where("object_id", $booking->object_id)->first();
                     $userId = UserBookings::where("reservation_record_id", $booking->reservation_record_id)->first()->user_id;
                     $user = User::where("id", $userId)->first();
-                    if (Auth::user()->id == $doctor->user_id)
-                        $activeBy = $doctor->full_name;
+                    if (Auth::user()->id == $consultant->user_id)
+                        $activeBy = $consultant->full_name;
                     else
                         $activeBy = Auth::user()->full_name;
 
-                    $doctorNotificationLang = User::where("id", $doctor->user_id)->first()->notification_lang;
+                    $consultantNotificationLang = User::where("id", $consultant->user_id)->first()->notification_lang;
                     $userNotificationMsg = $this->getOrderNotificationDetails("UnCancelled_booking", ["name" => $activeBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
-                    $doctorNotificationMsg = $this->getOrderNotificationDetails("UnCancelled_booking", ["name" => $activeBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
+                    $consultantNotificationMsg = $this->getOrderNotificationDetails("UnCancelled_booking", ["name" => $activeBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
                     $userNotificationTitle = $userNotificationMsg['title'][$user->notification_lang];
                     $userNotificationBody = $userNotificationMsg['body'][$user->notification_lang];
-                    $doctorNotificationTitle = $doctorNotificationMsg['title'][$doctorNotificationLang];
-                    $doctorNotificationBody = $doctorNotificationMsg['body'][$doctorNotificationLang];
+                    $consultantNotificationTitle = $consultantNotificationMsg['title'][$consultantNotificationLang];
+                    $consultantNotificationBody = $consultantNotificationMsg['body'][$consultantNotificationLang];
                     $userNotification = new Notifications();
                     $userNotification->title = $userNotificationTitle;
                     $userNotification->body = $userNotificationBody;
@@ -84,35 +85,35 @@ class Cancellation extends Component
                     $userNotification->type = 1;
                     $userNotification->status = 1;
                     $userNotification->save();
-                    $doctorNotification = new Notifications();
-                    $doctorNotification->title = $doctorNotificationTitle;
-                    $doctorNotification->body = $doctorNotificationBody;
-                    $doctorNotification->user_id = $doctor->user_id;
-                    $doctorNotification->type = 1;
-                    $doctorNotification->status = 1;
-                    $doctorNotification->save();
+                    $consultantNotification = new Notifications();
+                    $consultantNotification->title = $consultantNotificationTitle;
+                    $consultantNotification->body = $consultantNotificationBody;
+                    $consultantNotification->user_id = $consultant->user_id;
+                    $consultantNotification->type = 1;
+                    $consultantNotification->status = 1;
+                    $consultantNotification->save();
                     $userDevicetoken = $this->getTokens(User::findMany($userId));
-                    $doctorDevicetoken = $this->getTokens(User::findMany($doctor->user_id));
+                    $consultantDevicetoken = $this->getTokens(User::findMany($consultant->user_id));
                     $otherUserDevicesToken = UserDeviceToken::where("user_id", $userId)->get("device_token");
                     if (count($otherUserDevicesToken) > 0) {
                         for ($i = 0; $i < count($otherUserDevicesToken); $i++) {
                             $userDevicetoken[] = $otherUserDevicesToken[$i]->device_token;
                         }
                     }
-                    $otherDoctorDevicesToken = UserDeviceToken::where("user_id", $doctor->user_id)->get("device_token");
-                    if (count($otherDoctorDevicesToken) > 0) {
-                        for ($i = 0; $i < count($otherDoctorDevicesToken); $i++) {
-                            $doctorDevicetoken[] = $otherDoctorDevicesToken[$i]->device_token;
+                    $otherConsultantDevicesToken = UserDeviceToken::where("user_id", $consultant->user_id)->get("device_token");
+                    if (count($otherConsultantDevicesToken) > 0) {
+                        for ($i = 0; $i < count($otherConsultantDevicesToken); $i++) {
+                            $consultantDevicetoken[] = $otherConsultantDevicesToken[$i]->device_token;
                         }
                     }
                     $this->sendFirebaseNotificationCustom(["title" => $userNotificationTitle, "body" => $userNotificationBody], $userDevicetoken);
                     $userNot = Notifications::find($userNotification->id);
                     $userNot->is_sent = 1;
                     $userNot->save();
-                    $this->sendFirebaseNotificationCustom(["title" => $doctorNotificationTitle, "body" => $doctorNotificationBody], $doctorDevicetoken);
-                    $doctorNot = Notifications::find($doctorNotification->id);
-                    $doctorNot->is_sent = 1;
-                    $doctorNot->save();
+                    $this->sendFirebaseNotificationCustom(["title" => $consultantNotificationTitle, "body" => $consultantNotificationBody], $consultantDevicetoken);
+                    $consultantNot = Notifications::find($consultantNotification->id);
+                    $consultantNot->is_sent = 1;
+                    $consultantNot->save();
                 }
             }
             if ($this->cancellationStatus == 1) {
@@ -136,21 +137,21 @@ class Cancellation extends Component
                 $timeTo = strtotime($slotTime->time_to);
                 $newFormatFrom = date('H:i', $timeFrom);
                 $newFormatTo = date('H:i', $timeTo);
-                $doctor = Doctor::where("object_id", $booking->object_id)->first();
+                $consultant = Consultant::where("object_id", $booking->object_id)->first();
                 $userId = UserBookings::where("reservation_record_id", $booking->reservation_record_id)->first()->user_id;
                 $user = User::where("id", $userId)->first();
-                if (Auth::user()->id == $doctor->user_id)
-                    $cancelledBy = $doctor->full_name;
+                if (Auth::user()->id == $consultant->user_id)
+                    $cancelledBy = $consultant->full_name;
                 else
                     $cancelledBy = Auth::user()->full_name;
-                if ($doctor->user_id) {
-                    $doctorNotificationLang = User::where("id", $doctor->user_id)->first()->notification_lang;
+                if ($consultant->user_id) {
+                    $consultantNotificationLang = User::where("id", $consultant->user_id)->first()->notification_lang;
                     $userNotificationMsg = $this->getOrderNotificationDetails("cancel_booking", ["name" => $cancelledBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
-                    $doctorNotificationMsg = $this->getOrderNotificationDetails("cancel_booking", ["name" => $cancelledBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
+                    $consultantNotificationMsg = $this->getOrderNotificationDetails("cancel_booking", ["name" => $cancelledBy, "type" => $booking->is_online, "date" => $booking->date, "from" => $newFormatFrom, "to" => $newFormatTo]);
                     $userNotificationTitle = $userNotificationMsg['title'][$user->notification_lang];
                     $userNotificationBody = $userNotificationMsg['body'][$user->notification_lang];
-                    $doctorNotificationTitle = $doctorNotificationMsg['title'][$doctorNotificationLang];
-                    $doctorNotificationBody = $doctorNotificationMsg['body'][$doctorNotificationLang];
+                    $consultantNotificationTitle = $consultantNotificationMsg['title'][$consultantNotificationLang];
+                    $consultantNotificationBody = $consultantNotificationMsg['body'][$consultantNotificationLang];
                     $userNotification = new Notifications();
                     $userNotification->title = $userNotificationTitle;
                     $userNotification->body = $userNotificationBody;
@@ -158,35 +159,35 @@ class Cancellation extends Component
                     $userNotification->type = 1;
                     $userNotification->status = 1;
                     $userNotification->save();
-                    $doctorNotification = new Notifications();
-                    $doctorNotification->title = $doctorNotificationTitle;
-                    $doctorNotification->body = $doctorNotificationBody;
-                    $doctorNotification->user_id = $doctor->user_id;
-                    $doctorNotification->type = 1;
-                    $doctorNotification->status = 1;
-                    $doctorNotification->save();
+                    $consultantNotification = new Notifications();
+                    $consultantNotification->title = $consultantNotificationTitle;
+                    $consultantNotification->body = $consultantNotificationBody;
+                    $consultantNotification->user_id = $consultant->user_id;
+                    $consultantNotification->type = 1;
+                    $consultantNotification->status = 1;
+                    $consultantNotification->save();
                     $userDevicetoken = $this->getTokens(User::findMany($userId));
-                    $doctorDevicetoken = $this->getTokens(User::findMany($doctor->user_id));
+                    $consultantDevicetoken = $this->getTokens(User::findMany($consultant->user_id));
                     $otherUserDevicesToken = UserDeviceToken::where("user_id", $userId)->get("device_token");
                     if (count($otherUserDevicesToken) > 0) {
                         for ($i = 0; $i < count($otherUserDevicesToken); $i++) {
                             $userDevicetoken[] = $otherUserDevicesToken[$i]->device_token;
                         }
                     }
-                    $otherDoctorDevicesToken = UserDeviceToken::where("user_id", $doctor->user_id)->get("device_token");
-                    if (count($otherDoctorDevicesToken) > 0) {
-                        for ($i = 0; $i < count($otherDoctorDevicesToken); $i++) {
-                            $doctorDevicetoken[] = $otherDoctorDevicesToken[$i]->device_token;
+                    $otherConsultantDevicesToken = UserDeviceToken::where("user_id", $consultant->user_id)->get("device_token");
+                    if (count($otherConsultantDevicesToken) > 0) {
+                        for ($i = 0; $i < count($otherConsultantDevicesToken); $i++) {
+                            $consultantDevicetoken[] = $otherConsultantDevicesToken[$i]->device_token;
                         }
                     }
                     $this->sendFirebaseNotificationCustom(["title" => $userNotificationTitle, "body" => $userNotificationBody], $userDevicetoken);
                     $userNot = Notifications::find($userNotification->id);
                     $userNot->is_sent = 1;
                     $userNot->save();
-                    $this->sendFirebaseNotificationCustom(["title" => $doctorNotificationTitle, "body" => $doctorNotificationBody], $doctorDevicetoken);
-                    $doctorNot = Notifications::find($doctorNotification->id);
-                    $doctorNot->is_sent = 1;
-                    $doctorNot->save();
+                    $this->sendFirebaseNotificationCustom(["title" => $consultantNotificationTitle, "body" => $consultantNotificationBody], $consultantDevicetoken);
+                    $consultantNot = Notifications::find($consultantNotification->id);
+                    $consultantNot->is_sent = 1;
+                    $consultantNot->save();
                 }
 
             }

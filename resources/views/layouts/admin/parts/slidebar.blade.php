@@ -48,6 +48,25 @@
                 <li><a class="treeview-item @if(request()->routeIs("admin.categories.index")) active @endif" href="{{ route("admin.categories.index")}}"> {{__('All Categories')}}</a></li>
             </ul>
         </li>
+        <!------------------------- Register Form -------------------------->
+        <li class="treeview @if(request()->routeIs("admin.consultantrequest.*")) is-expanded @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-plus"></i><span class="app-menu__label">{{__('Request Join')}}</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item @if(request()->routeIs("admin.branches.create")) active @endif" href="{{ route("admin.branches.create")}}"><i class="icon fa fa-circle-o"></i>{{__('Create New Branch')}} </a></li>
+                <li><a class="treeview-item @if(request()->routeIs("admin.consultantrequest.index")) active @endif" href="{{ route("admin.consultantrequest.index") }}"><i class="icon fa fa-circle-o"></i>{{__('All Branches')}} </a></li>
+            </ul>
+{{--        @if(isPermissionsAllowed("view-drivers-requests-join", "view-institution-requests-join"))--}}
+{{--            <li class="treeview @if(request()->routeIs("admin.form-register*")) is-expanded @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-plus"></i><span class="app-menu__label">{{__("Request Join")}}</span><i class="treeview-indicator fa @if(app()->getLocale() == "en") fa-angle-right @else fa-angle-left @endif"></i></a>--}}
+{{--                <ul class="treeview-menu">--}}
+{{--                    @if(isPermissionsAllowed("view-institution-requests-join"))--}}
+{{--                        <li><a class="treeview-item @if(request()->is("*/admin/form-register/institution*")) active @endif" href="{{ route("admin.form-register.institution.index") }}"><i class="icon fa fa-circle-o"></i> {{__("Institution")}}</a></li>--}}
+{{--                    @endif--}}
+{{--                    @if(isPermissionsAllowed("view-drivers-requests-join"))--}}
+{{--                        <li><a class="treeview-item @if(request()->is("*/admin/form-register/driver*")) active @endif" href="{{ route("admin.form-register.driver.show") }}"><i class="icon fa fa-circle-o"></i> {{__("Driver")}}</a></li>--}}
+{{--                    @endif--}}
+
+{{--                </ul>--}}
+{{--            </li>--}}
+{{--        @endif--}}
 
 
         <li class="treeview @if(request()->routeIs("admin.items.*")) is-expanded @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-tags"></i><span class="app-menu__label">{{__('Items')}}</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -214,11 +233,11 @@
                 </ul>
             </li>
         @endif
-        @if(hasPermissions("view-doctor"))
-            <li class="treeview @if(request()->routeIs("admin.doctor.*")) is-expanded @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon  fas fa-user-md"></i><span class="app-menu__label">{{__("doctors")}}</span><i class="treeview-indicator fa @if(app()->getLocale() == "en") fa-angle-right @else fa-angle-left @endif"></i></a>
+        @if(hasPermissions("view-consultant"))
+            <li class="treeview @if(request()->routeIs("admin.consultant.*")) is-expanded @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon  fas fa-user-md"></i><span class="app-menu__label">{{__("consultants")}}</span><i class="treeview-indicator fa @if(app()->getLocale() == "en") fa-angle-right @else fa-angle-left @endif"></i></a>
                 <ul class="treeview-menu">
-                    <li><a class="treeview-item @if(request()->is("admin.doctor.index")) active @endif" href="{{ route("admin.doctor.index") }}"><i class="icon fa fa-circle-o"></i> {{__("all-doctors")}}</a></li>
-                    <li><a class="treeview-item @if(request()->is("admin.doctor.create")) active @endif" href="{{ route("admin.doctor.create") }}"><i class="icon fa fa-circle-o"></i> {{__("create-new-doctor")}}</a></li>
+                    <li><a class="treeview-item @if(request()->is("admin.consultant.index")) active @endif" href="{{ route("admin.consultant.index") }}"><i class="icon fa fa-circle-o"></i> {{__("All Consultants")}}</a></li>
+                    <li><a class="treeview-item @if(request()->is("admin.consultant.create")) active @endif" href="{{ route("admin.consultant.create") }}"><i class="icon fa fa-circle-o"></i> {{__("Create New Consultant")}}</a></li>
                 </ul>
             </li>
         @endif

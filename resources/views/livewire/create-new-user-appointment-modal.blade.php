@@ -46,17 +46,17 @@
 
                         </div>
                         <div class="col-sm-6" style="margin-bottom:10px">
-                            <p>{{__('Choose Doctor')}}</p>
+                            <p>{{__('Choose consultant')}}</p>
                             <select wire:model="object_id" wire:change="handleTime"  class="form-control @if($errors->has('object_id')) is-invalid @endif" style="margin: 5px 0px;height: 45px;background: none;padding:13px;border-radius: 7px" >
-                                <option value="">-- {{__('Select Doctor')}} --</option>
+                                <option value="">-- {{__('Select consultant')}} --</option>
                                 @if($doct)
-                                    @foreach($doct as $index => $doctor)
-                                        <option value="{{$doctor->object_id}}">{{ $doctor->full_name }}</option>
+                                    @foreach($doct as $index => $consultant)
+                                        <option value="{{$consultant->object_id}}">{{ $consultant->full_name }}</option>
                                     @endforeach
                                 @endif
                             </select>
                             <div>
-                                @error('object_id') <span class="text-danger">{{__('The doctor field is required.')}}</span> @enderror
+                                @error('object_id') <span class="text-danger">{{__('The consultant field is required.')}}</span> @enderror
                             </div>
                         </div>
                     </div>
@@ -160,12 +160,12 @@
                                 <img src="{{asset("uploads/time/70893-time.gif")}}" alt=""   width="150px" height="150px">
                                 <br>
                             </div>
-                            <h6 style="color:darkred;text-align: center;margin-left:21%">{{__('This doctor is not available on this day')}}</h6>
+                            <h6 style="color:darkred;text-align: center;margin-left:21%">{{__('This consultant is not available on this day')}}</h6>
                         @else
                             <div @if(\Illuminate\Support\Facades\App::getLocale() == 'ar') style="display: flex;flex-direction:column;margin: 0px auto" @endif>
                                 <img src="{{asset("uploads/time/70893-time.gif")}}" alt=""   width="150px" height="150px">
                                 <br>
-                                <h6 style="color:darkred;text-align: center;margin-left:21%">{{__('This doctor is not available on this day')}}</h6>
+                                <h6 style="color:darkred;text-align: center;margin-left:21%">{{__('This consultant is not available on this day')}}</h6>
                             </div>
                         @endif
                     @endif

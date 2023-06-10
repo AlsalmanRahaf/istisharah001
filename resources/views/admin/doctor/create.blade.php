@@ -11,7 +11,7 @@
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
             <li class="breadcrumb-item"><a href="#">{{__("Dashboard")}}</a></li>
-            <li class="breadcrumb-item"><a href="{{route("admin.doctor.index")}}">{{__("doctors")}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route("admin.consultant.index")}}">{{__("doctors")}}</a></li>
             <li class="breadcrumb-item"><a href="#">{{__("Create")}}</a></li>
         </ul>
     </div>
@@ -24,7 +24,7 @@
             <div class="tile">
                 <h3 class="tile-title">{{__("create-new-doctor")}}</h3>
                 <div class="tile-body">
-                    <form method="post" action="{{route("admin.doctor.store")}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route("admin.consultant.store")}}" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
@@ -101,6 +101,9 @@
                                     <label class="control-label">{{__("about-doctor")}}</label>
                                     <textarea style="height: 40px" class="form-control @if($errors->has('doctor_description')) is-invalid @endif" type="text" name="doctor_description" placeholder="{{__("enter-description")}}">{{inputValue("doctor_description")}}</textarea>
                                 </div>
+                                @error("doctor_description")
+                                <div class="input-error">{{$message}}</div>
+                                @enderror
                             </div>
 {{--                            <div class="col-lg-6">--}}
 {{--                                <div class="form-group">--}}
